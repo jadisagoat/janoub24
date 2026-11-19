@@ -1,0 +1,18 @@
+# إعدادات الخادم (كلمات سر قاعدة البيانات) — انسخ config.example.php إلى config.php
+/config.php
+
+# ملفات التشغيل والكاش
+/storage/*
+!/storage/.gitkeep
+
+# صور الأخبار المرفوعة (كبيرة الحجم، تُنسخ مع النسخ الاحتياطي لا مع الكود)
+/uploads/*
+!/uploads/.gitkeep
+
+# ملف CSS المجمّع يُبنى تلقائياً
+/assets/css/app.min.css
+
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

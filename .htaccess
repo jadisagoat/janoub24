@@ -1,0 +1,55 @@
+Options -Indexes -MultiViews
+DirectoryIndex index.php
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # ===== في الإنتاج: فعّل إجبار HTTPS وإزالة www (أزل # من الأسطر الأربعة) =====
+  # RewriteCond %{HTTPS} off [OR]
+  # RewriteCond %{HTTP_HOST} ^www\. [NC]
+  # RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+  # RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+  # منع الوصول للملفات الحساسة
+  RewriteRule ^(app|views|database|storage)(/|$) - [F,L]
+  RewriteRule ^(config\.php|install\.php\.lock|composer\.(json|lock))$ - [F,L]
+  RewriteRule (^|/)\.(?!well-known) - [F,L]
+
+  # كل الطلبات غير الموجودة كملف تذهب للموجّه
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# ===== ضغط الملفات =====
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml application/rss+xml application/javascript application/json application/manifest+json image/svg+xml
+</IfModule>
+
+# ===== تخزين الملفات الثابتة في المتصفح =====
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # ترويسات الأمان للصفحات تُرسل من PHP (security_headers)؛ هنا للملفات الثابتة فقط
+  <FilesMatch "\.(webp|avif|jpe?g|png|gif|svg|css|js|woff2)$">
+    Header set X-Content-Type-Options "nosniff"
+  </FilesMatch>
+  <FilesMatch "\.(webp|avif|jpe?g|png|css|js|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType application/manifest+json .webmanifest
+</IfModule>
