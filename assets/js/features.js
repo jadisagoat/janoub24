@@ -295,11 +295,3 @@
   });
 })();
 
-/* توقيع المطوّر في الـ Console */
-(function () {
-  try {
-    console.log('%c🌲 Creative Lebanon %c\nتصميم وتطوير موقع جنوب 24\nشركة برمجة وتصميم مواقع وتطبيقات في لبنان — منذ 2009\n\n→ https://creativelebanon.com\n→ واتساب: +961 70 640 802',
-      'font:800 22px system-ui,sans-serif;color:#fff;background:linear-gradient(90deg,#be123c,#0b6fae);padding:8px 14px;border-radius:8px',
-      'font:14px/1.7 system-ui,sans-serif;color:#22a861');
-  } catch (e) {}
-})();

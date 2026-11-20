@@ -205,24 +205,13 @@ $onLive = $liveNow && preg_match('#^/news/' . (int)$liveNow['id'] . '(/|$)#', $p
   <div class="foot-bottom">
     <div class="wrap foot-bottom-in">
       <span>© <?= date('Y') ?> <?= e(site_name()) ?>. جميع الحقوق محفوظة.</span>
-      <div class="made-by-wrap">
-        <a class="made-by" href="https://creativelebanon.com" target="_blank" rel="noopener" aria-describedby="mb-card">
+      <div id="cl-credit">
+        <?php /* رابط احتياطي: يستبدله credit.js بالشارة والبطاقة عند تحميله من creativelebanon.com */ ?>
+        <a class="made-by" href="https://creativelebanon.com" target="_blank" rel="noopener">
           <span class="mb-lbl">تصميم وتطوير</span>
           <svg class="mb-cedar" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 2 8.6 6.4h2L7 10.6h2.6L5.4 15.4h3.4L4 20h7v2h2v-2h7l-4.8-4.6h3.4L14.4 10.6H17l-3.6-4.2h2z" fill="currentColor"/></svg>
           <b dir="ltr">Creative Lebanon</b>
         </a>
-        <div class="mb-card" id="mb-card" role="tooltip">
-          <div class="mb-head">
-            <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M12 2 8.6 6.4h2L7 10.6h2.6L5.4 15.4h3.4L4 20h7v2h2v-2h7l-4.8-4.6h3.4L14.4 10.6H17l-3.6-4.2h2z" fill="currentColor"/></svg>
-            <div><b dir="ltr">Creative Lebanon</b><small>شركة برمجة وتصميم مواقع في لبنان — منذ 2009</small></div>
-          </div>
-          <p>نحوّل الأفكار إلى منتجات رقمية: من الفكرة إلى الإطلاق والنمو.</p>
-          <ul class="mb-tags"><li>مواقع إلكترونية</li><li>تطبيقات موبايل</li><li>متاجر إلكترونية</li><li>أنظمة ذكية</li><li>ذكاء اصطناعي</li><li>SEO وإعلانات</li></ul>
-          <div class="mb-cta">
-            <a href="https://creativelebanon.com/contactus" target="_blank" rel="noopener" class="mb-go">اطلب موقعك</a>
-            <a href="https://wa.me/96170640802" target="_blank" rel="noopener" class="mb-wa" aria-label="واتساب Creative Lebanon"><?= icon('whatsapp', 16) ?> واتساب</a>
-          </div>
-        </div>
       </div>
       <nav aria-label="قانوني"><a href="<?= e(page_url('privacy')) ?>">الخصوصية</a><a href="<?= e(page_url('terms')) ?>">شروط الاستخدام</a><a href="<?= e(url('sitemap.xml')) ?>">خريطة الموقع</a><a href="<?= e(url('feed')) ?>">RSS</a></nav>
     </div>
@@ -234,6 +223,7 @@ $onLive = $liveNow && preg_match('#^/news/' . (int)$liveNow['id'] . '(/|$)#', $p
 <script>window.J24={base:<?= json_encode(base_url()) ?>};</script>
 <script src="<?= e(asset('js/app.js')) ?>" defer></script>
 <script src="<?= e(asset('js/features.js')) ?>" defer></script>
+<script src="https://creativelebanon.com/creativelebanon-credit/credit.js" data-target="#cl-credit" data-theme="dark" data-client="جنوب 24" defer></script>
 <script type="speculationrules">{"prefetch":[{"where":{"and":[{"href_matches":"<?= e(parse_url(base_url(), PHP_URL_PATH) ?: '') ?>/*"},{"not":{"href_matches":"*/admin/*"}},{"not":{"href_matches":"*/api/*"}},{"not":{"href_matches":"*/feed*"}}]},"eagerness":"moderate"}]}</script>
 <?= setting('footer_code') ?>
 </body>
