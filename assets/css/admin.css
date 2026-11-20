@@ -177,3 +177,14 @@ input[type=color] { display: block; margin-top: 4px; width: 60px; height: 38px; 
 .pick-list li:hover, .pick-list li.on { background: #eef6fc; }
 .pick-list li.pick-empty { color: var(--muted); cursor: default; justify-content: center; font-size: .82rem; }
 .pick-list li.pick-empty:hover { background: transparent; }
+
+/* توقيع الشركة المطوّرة */
+.side-foot { display: flex; flex-direction: column; gap: 10px; }
+.cl-support { display: flex; flex-direction: column; padding: 9px 12px; border-radius: 10px; background: rgba(34,168,97,.08); border: 1px solid rgba(34,168,97,.22); line-height: 1.5; transition: background .2s; }
+.cl-support span { font-size: .7rem; color: #94a3b8; }
+.cl-support b { color: #fff; font: 700 .82rem system-ui, "Segoe UI", sans-serif; }
+.cl-support:hover { background: rgba(34,168,97,.16); text-decoration: none; }
+.login-wrap { grid-template-rows: 1fr auto; }
+.cl-login { color: rgba(255,255,255,.55); font-size: .78rem; padding-top: 18px; }
+.cl-login b { color: #fff; font-family: system-ui, "Segoe UI", sans-serif; }
+.cl-login:hover { color: #fff; text-decoration: none; }

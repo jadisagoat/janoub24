@@ -34,6 +34,7 @@ $nav = [
   </nav>
   <div class="side-foot">
     <a href="<?= e(url()) ?>" target="_blank">عرض الموقع ↗</a>
+    <a class="cl-support" href="https://wa.me/96170640802" target="_blank" rel="noopener" title="الدعم الفني — Creative Lebanon"><span>الدعم الفني</span><b dir="ltr">🌲 Creative Lebanon</b></a>
   </div>
 </aside>
 <div class="main">

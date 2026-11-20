@@ -7,9 +7,15 @@ $social = social_links();
 $liveNow = open_live();
 $onLive = $liveNow && preg_match('#^/news/' . (int)$liveNow['id'] . '(/|$)#', $path);
 ?><!doctype html>
+<!--
+  جنوب 24 — تصميم وتطوير Creative Lebanon
+  شركة برمجة وتصميم مواقع وتطبيقات في لبنان — منذ 2009
+  https://creativelebanon.com  ·  info@creativelebanon.com
+-->
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
+  <link rel="author" href="<?= e(url('humans.txt')) ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <?= Seo::render() ?>
 
@@ -199,11 +205,25 @@ $onLive = $liveNow && preg_match('#^/news/' . (int)$liveNow['id'] . '(/|$)#', $p
   <div class="foot-bottom">
     <div class="wrap foot-bottom-in">
       <span>© <?= date('Y') ?> <?= e(site_name()) ?>. جميع الحقوق محفوظة.</span>
-      <a class="made-by" href="https://creativelebanon.com" target="_blank" rel="noopener" title="Creative Lebanon — تصميم وتطوير المواقع">
-        <span class="mb-lbl">تصميم وتطوير</span>
-        <svg class="mb-cedar" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 2 8.6 6.4h2L7 10.6h2.6L5.4 15.4h3.4L4 20h7v2h2v-2h7l-4.8-4.6h3.4L14.4 10.6H17l-3.6-4.2h2z" fill="currentColor"/></svg>
-        <b dir="ltr">Creative Lebanon</b>
-      </a>
+      <div class="made-by-wrap">
+        <a class="made-by" href="https://creativelebanon.com" target="_blank" rel="noopener" aria-describedby="mb-card">
+          <span class="mb-lbl">تصميم وتطوير</span>
+          <svg class="mb-cedar" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 2 8.6 6.4h2L7 10.6h2.6L5.4 15.4h3.4L4 20h7v2h2v-2h7l-4.8-4.6h3.4L14.4 10.6H17l-3.6-4.2h2z" fill="currentColor"/></svg>
+          <b dir="ltr">Creative Lebanon</b>
+        </a>
+        <div class="mb-card" id="mb-card" role="tooltip">
+          <div class="mb-head">
+            <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M12 2 8.6 6.4h2L7 10.6h2.6L5.4 15.4h3.4L4 20h7v2h2v-2h7l-4.8-4.6h3.4L14.4 10.6H17l-3.6-4.2h2z" fill="currentColor"/></svg>
+            <div><b dir="ltr">Creative Lebanon</b><small>شركة برمجة وتصميم مواقع في لبنان — منذ 2009</small></div>
+          </div>
+          <p>نحوّل الأفكار إلى منتجات رقمية: من الفكرة إلى الإطلاق والنمو.</p>
+          <ul class="mb-tags"><li>مواقع إلكترونية</li><li>تطبيقات موبايل</li><li>متاجر إلكترونية</li><li>أنظمة ذكية</li><li>ذكاء اصطناعي</li><li>SEO وإعلانات</li></ul>
+          <div class="mb-cta">
+            <a href="https://creativelebanon.com/contactus" target="_blank" rel="noopener" class="mb-go">اطلب موقعك</a>
+            <a href="https://wa.me/96170640802" target="_blank" rel="noopener" class="mb-wa" aria-label="واتساب Creative Lebanon"><?= icon('whatsapp', 16) ?> واتساب</a>
+          </div>
+        </div>
+      </div>
       <nav aria-label="قانوني"><a href="<?= e(page_url('privacy')) ?>">الخصوصية</a><a href="<?= e(page_url('terms')) ?>">شروط الاستخدام</a><a href="<?= e(url('sitemap.xml')) ?>">خريطة الموقع</a><a href="<?= e(url('feed')) ?>">RSS</a></nav>
     </div>
   </div>

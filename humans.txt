@@ -1,0 +1,12 @@
+/* TEAM */
+  Design & Development: Creative Lebanon
+  Site: https://creativelebanon.com
+  Contact: info@creativelebanon.com
+  WhatsApp: +961 70640802
+  Location: Beirut, Lebanon
+
+/* SITE */
+  Client: جنوب 24 — Janoub24 (https://janoub24.com)
+  Language: Arabic (RTL)
+  Standards: HTML5, CSS3, PHP 8, Schema.org, Google News
+  Built by Creative Lebanon — شركة برمجة وتصميم مواقع في لبنان، منذ 2009

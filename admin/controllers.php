@@ -44,6 +44,7 @@ function a_login(): void
         <label>كلمة المرور<input type="password" name="password" required dir="ltr"></label>
         <button class="btn btn-full">دخول</button>
       </form>
+      <a class="cl-login" href="https://creativelebanon.com" target="_blank" rel="noopener">تصميم وتطوير <b dir="ltr">🌲 Creative Lebanon</b></a>
     </div>
     <?php admin_render('تسجيل الدخول', ob_get_clean());
 }
