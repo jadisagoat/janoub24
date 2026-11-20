@@ -42,6 +42,7 @@ $routes = [
     'tools'        => 'a_tools',
     'live'         => 'a_live',
     'seo'          => 'a_seo',
+    'lookup'       => 'a_article_lookup',
 ];
 if (!isset($routes[$p])) {
     http_response_code(404);

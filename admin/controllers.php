@@ -533,13 +533,20 @@ function a_breaking(): void
         redirect(admin_url('breaking'));
     }
     $list = rows('SELECT b.*, a.title FROM breaking_news b LEFT JOIN articles a ON a.id = b.article_id ORDER BY b.created_at DESC LIMIT 100');
-    $recent = ['' => '— بدون ربط —'] + array_column(rows("SELECT id, title FROM articles WHERE status='published' ORDER BY published_at DESC LIMIT 40"), 'title', 'id');
     ob_start(); ?>
     <form class="card breaking-form" method="post">
       <?= csrf_field() ?>
       <label class="lbl-big">نص الخبر العاجل<input name="text" maxlength="300" required placeholder="اكتب العاجل بإيجاز…" autofocus></label>
       <div class="row">
-        <label>ربط بخبر<select name="article_id"><?= sel($recent, '') ?></select></label>
+        <div class="lbl-wrap">
+          <span class="lbl-t">ربط بخبر</span>
+          <div class="pick" data-pick="<?= e(admin_url('lookup')) ?>">
+            <input type="hidden" name="article_id" value="">
+            <input type="search" class="pick-q" placeholder="ابحث بعنوان الخبر أو رقمه…" autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-label="ابحث عن خبر لربطه">
+            <div class="pick-sel" hidden><span></span><button type="button" title="إلغاء الربط" aria-label="إلغاء الربط">✕</button></div>
+            <ul class="pick-list" role="listbox" hidden></ul>
+          </div>
+        </div>
         <label>أو رابط خارجي<input type="url" name="url" dir="ltr"></label>
         <label>يظهر في الشريط لمدة (ساعات)<input type="number" name="hours" value="24" min="1" max="168"></label>
       </div>
@@ -561,6 +568,35 @@ function a_breaking(): void
       </table>
     </section>
     <?php admin_render('الأخبار العاجلة', ob_get_clean());
+}
+
+/** بحث سريع عن الأخبار المنشورة (لربط العاجل بخبر): بالعنوان أو رقم الخبر */
+function a_article_lookup(): void
+{
+    header('Content-Type: application/json; charset=utf-8');
+    $qStr = trim(mb_substr((string)($_GET['q'] ?? ''), 0, 80));
+    $list = [];
+    if ($qStr === '') {
+        $list = articles(['limit' => 8]);
+    } else {
+        if (ctype_digit($qStr)) {
+            $hit = row("SELECT a.id, a.title, a.image, a.published_at, c.name AS cat_name FROM articles a JOIN categories c ON c.id = a.category_id WHERE a.id = ? AND " . ART_LIVE, [(int)$qStr]);
+            $list = $hit ? [$hit] : [];
+        }
+        if (mb_strlen($qStr) >= 2) {
+            $seen = array_map('intval', array_column($list, 'id'));
+            foreach (articles(['search' => $qStr, 'limit' => 10]) as $a) {
+                if (!in_array((int)$a['id'], $seen, true)) {
+                    $list[] = $a;
+                }
+            }
+        }
+    }
+    $out = [];
+    foreach (array_slice($list, 0, 10) as $a) {
+        $out[] = ['id' => (int)$a['id'], 'title' => $a['title'], 'img' => img_url($a['image'], 'sm'), 'cat' => $a['cat_name'], 'time' => time_ago($a['published_at'])];
+    }
+    echo json_encode($out, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 }
 
 /* ================= الصفحات ================= */
