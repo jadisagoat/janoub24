@@ -17,3 +17,11 @@ Thumbs.db
 .vscode/
 .idea/
 /reset_admin.php
+
+# ملفات الاستضافة (لا تُرفع إلى GitHub)
+error_log
+.user.ini
+.litespeed_flag
+.hcflag
+*.bk
+/reset_admin*.php

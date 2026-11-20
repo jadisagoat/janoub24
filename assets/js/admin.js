@@ -124,3 +124,65 @@
   var sync = function () { box.hidden = t.value !== 'live'; };
   t.addEventListener('change', sync); sync();
 })();
+
+/* بحث واختيار خبر (ربط العاجل بخبر): يبحث في كل الأخبار المنشورة بالعنوان أو الرقم */
+(function () {
+  document.querySelectorAll('[data-pick]').forEach(function (box) {
+    var api = box.getAttribute('data-pick');
+    var hid = box.querySelector('input[type=hidden]'), q = box.querySelector('.pick-q');
+    var sel = box.querySelector('.pick-sel'), list = box.querySelector('.pick-list');
+    var timer = null, ctl = null, items = [], active = -1, cache = {};
+    var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+
+    function open(v) { list.hidden = !v; q.setAttribute('aria-expanded', v ? 'true' : 'false'); }
+    function render(data) {
+      items = data; active = -1;
+      list.innerHTML = data.length ? data.map(function (a, i) {
+        return '<li role="option" data-i="' + i + '"><img src="' + esc(a.img) + '" alt="" loading="lazy"><span><b>' + esc(a.title) + '</b><small>#' + a.id + ' · ' + esc(a.cat) + ' · ' + esc(a.time) + '</small></span></li>';
+      }).join('') : '<li class="pick-empty">لا نتائج — جرّب كلمة أخرى</li>';
+      open(true);
+    }
+    function load() {
+      var v = q.value.trim();
+      if (cache[v]) return render(cache[v]);
+      if (ctl) ctl.abort();
+      ctl = window.AbortController ? new AbortController() : null;
+      list.innerHTML = '<li class="pick-empty">جارٍ البحث…</li>'; open(true);
+      fetch(api + '&q=' + encodeURIComponent(v), { credentials: 'same-origin', signal: ctl ? ctl.signal : undefined })
+        .then(function (r) { return r.json(); })
+        .then(function (j) { cache[v] = j; if (q.value.trim() === v) render(j); })
+        .catch(function (e) { if (e.name !== 'AbortError') { list.innerHTML = '<li class="pick-empty">تعذّر البحث</li>'; } });
+    }
+    function choose(i) {
+      var a = items[i]; if (!a) return;
+      hid.value = a.id;
+      sel.querySelector('span').textContent = a.title;
+      sel.hidden = false; q.hidden = true; open(false);
+    }
+    function clear() {
+      hid.value = ''; sel.hidden = true; q.hidden = false; q.value = ''; q.focus(); load();
+    }
+    function mark(n) {
+      var lis = list.querySelectorAll('li[data-i]');
+      if (!lis.length) return;
+      active = (n + lis.length) % lis.length;
+      lis.forEach(function (li, k) { li.classList.toggle('on', k === active); });
+      lis[active].scrollIntoView({ block: 'nearest' });
+    }
+
+    q.addEventListener('focus', load);
+    q.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(load, 200); });
+    q.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); if (list.hidden) load(); else mark(active + 1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); mark(active - 1); }
+      else if (e.key === 'Enter') { if (!list.hidden && items.length) { e.preventDefault(); choose(active < 0 ? 0 : active); } }
+      else if (e.key === 'Escape') { open(false); }
+    });
+    list.addEventListener('mousedown', function (e) {
+      var li = e.target.closest('li[data-i]');
+      if (li) { e.preventDefault(); choose(+li.getAttribute('data-i')); }
+    });
+    sel.querySelector('button').addEventListener('click', clear);
+    document.addEventListener('click', function (e) { if (!box.contains(e.target)) open(false); });
+  });
+})();

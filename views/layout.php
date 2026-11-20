@@ -199,6 +199,11 @@ $onLive = $liveNow && preg_match('#^/news/' . (int)$liveNow['id'] . '(/|$)#', $p
   <div class="foot-bottom">
     <div class="wrap foot-bottom-in">
       <span>© <?= date('Y') ?> <?= e(site_name()) ?>. جميع الحقوق محفوظة.</span>
+      <a class="made-by" href="https://creativelebanon.com" target="_blank" rel="noopener" title="Creative Lebanon — تصميم وتطوير المواقع">
+        <span class="mb-lbl">تصميم وتطوير</span>
+        <svg class="mb-cedar" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 2 8.6 6.4h2L7 10.6h2.6L5.4 15.4h3.4L4 20h7v2h2v-2h7l-4.8-4.6h3.4L14.4 10.6H17l-3.6-4.2h2z" fill="currentColor"/></svg>
+        <b dir="ltr">Creative Lebanon</b>
+      </a>
       <nav aria-label="قانوني"><a href="<?= e(page_url('privacy')) ?>">الخصوصية</a><a href="<?= e(page_url('terms')) ?>">شروط الاستخدام</a><a href="<?= e(url('sitemap.xml')) ?>">خريطة الموقع</a><a href="<?= e(url('feed')) ?>">RSS</a></nav>
     </div>
   </div>

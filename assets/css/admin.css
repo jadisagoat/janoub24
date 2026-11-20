@@ -46,7 +46,7 @@ button.link.danger { color: #b91c1c; }
 form.inline { display: inline; }
 
 label { display: block; font-weight: 600; font-size: .85rem; margin-bottom: 12px; }
-input[type=text], input[type=email], input[type=url], input[type=password], input[type=number], input[type=search], input[type=datetime-local], select, textarea {
+input:not([type]), input[type=text], input[type=email], input[type=url], input[type=password], input[type=number], input[type=search], input[type=datetime-local], select, textarea {
   display: block; width: 100%; margin-top: 4px; padding: 9px 12px; border: 1px solid #d1d5db; border-radius: 8px; font: inherit; font-weight: 400; background: #fff; color: var(--ink);
 }
 input:focus, select:focus, textarea:focus { outline: 2px solid rgba(11,111,174,.25); border-color: var(--red); }
@@ -158,3 +158,22 @@ input[type=color] { display: block; margin-top: 4px; width: 60px; height: 38px; 
 .seo-issue summary { cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
 .seo-issue[open] summary { margin-bottom: 8px; }
 .site-checks li { padding-top: 6px; padding-bottom: 6px; }
+
+/* اختيار خبر بالبحث */
+.lbl-wrap { margin-bottom: 12px; }
+.lbl-t { display: block; font-weight: 600; font-size: .85rem; }
+.pick { position: relative; }
+.pick-q { margin-bottom: 0 !important; }
+.pick-sel { display: flex; align-items: center; gap: 8px; margin-top: 4px; padding: 9px 12px; border: 1px solid var(--red); background: #eef6fc; border-radius: 8px; font-size: .85rem; font-weight: 600; min-height: 42px; }
+.pick-sel span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pick-sel button { border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 1rem; padding: 0 4px; }
+.pick-sel button:hover { color: #dc2626; }
+.pick-list { position: absolute; inset-inline: 0; top: calc(100% + 4px); z-index: 30; list-style: none; margin: 0; padding: 4px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 12px 32px rgba(0,32,61,.16); max-height: 340px; overflow-y: auto; min-width: 320px; }
+.pick-list li { display: flex; gap: 10px; align-items: center; padding: 7px 8px; border-radius: 7px; cursor: pointer; }
+.pick-list li img { width: 54px; height: 36px; object-fit: cover; border-radius: 5px; flex: none; background: var(--bg); }
+.pick-list li span { min-width: 0; display: flex; flex-direction: column; }
+.pick-list li b { font-weight: 600; font-size: .84rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.pick-list li small { color: var(--muted); font-size: .72rem; }
+.pick-list li:hover, .pick-list li.on { background: #eef6fc; }
+.pick-list li.pick-empty { color: var(--muted); cursor: default; justify-content: center; font-size: .82rem; }
+.pick-list li.pick-empty:hover { background: transparent; }
